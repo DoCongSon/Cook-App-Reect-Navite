@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import * as Font from 'expo-font';
+import MainNavigator from './navigation/MealsNavigator';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [appIsReady, setAppIsReady] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          'Poppins-Light': require('./assets/Font/Poppins-Light.ttf'),
+          'Poppins-Regular': require('./assets/Font/Poppins-Regular.ttf'),
+          'Poppins-SemiBold': require('./assets/Font/Poppins-SemiBold.ttf'),
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+    prepare();
+  }, []);
+
+  if (!appIsReady) {
+    return null;
+  }
+
+  return <MainNavigator />;
+}
