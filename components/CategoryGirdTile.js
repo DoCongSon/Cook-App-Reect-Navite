@@ -1,20 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
+import { View, StyleSheet, Platform, Pressable } from 'react-native';
+import DefaultText from './DefaultText';
 
 const CategoryGirdTile = ({ title, color, onChange }) => {
-  let TouchableComponent = TouchableOpacity;
-
-  if (Platform.OS === 'android') {
-    TouchableComponent = TouchableNativeFeedback;
-  }
-
   return (
     <View style={styles.gridItem}>
-      <TouchableComponent style={{ flex: 1 }} onPress={onChange}>
-        <View style={{ ...styles.container, backgroundColor: color }}>
-          <Text style={styles.title}>{title}</Text>
+      <Pressable
+        style={({ pressed }) => [{ flex: 1, backgroundColor: color }, pressed ? { opacity: 0.5 } : null]}
+        onPress={onChange}>
+        <View style={styles.container}>
+          <DefaultText style={styles.title}>{title}</DefaultText>
         </View>
-      </TouchableComponent>
+      </Pressable>
     </View>
   );
 };
@@ -33,7 +30,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    overflow: 'hidden',
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    backgroundColor: 'white',
   },
   container: {
     flex: 1,
@@ -44,7 +42,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     textAlign: 'right',
-    fontFamily: 'Poppins-SemiBold',
   },
 });
 

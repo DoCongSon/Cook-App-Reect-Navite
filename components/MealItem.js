@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  StyleSheet,
-  Platform,
-  ImageBackground,
-} from 'react-native';
+import { View, TouchableOpacity, TouchableNativeFeedback, StyleSheet, Platform, ImageBackground } from 'react-native';
+import DefaultText from './DefaultText';
 
 const MealItem = ({ onSelectMeal, dataItem }) => {
   let TouchableComponent = TouchableOpacity;
@@ -15,6 +8,7 @@ const MealItem = ({ onSelectMeal, dataItem }) => {
   if (Platform.OS === 'android') {
     TouchableComponent = TouchableNativeFeedback;
   }
+
   return (
     <View style={styles.container}>
       <TouchableComponent onPress={onSelectMeal}>
@@ -22,16 +16,16 @@ const MealItem = ({ onSelectMeal, dataItem }) => {
           <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
             <ImageBackground source={{ uri: dataItem.imageUrl }} style={styles.backgroundImg}>
               <View style={styles.titleContainer}>
-                <Text style={styles.title} numberOfLines={1}>
+                <DefaultText style={styles.title} numberOfLines={1}>
                   {dataItem.title}
-                </Text>
+                </DefaultText>
               </View>
             </ImageBackground>
           </View>
           <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-            <Text>{dataItem.duration}m</Text>
-            <Text>{dataItem.complexity.toUpperCase()}</Text>
-            <Text>{dataItem.affordability.toUpperCase()}</Text>
+            <DefaultText style={styles.text}>{dataItem.duration}m</DefaultText>
+            <DefaultText style={styles.text}>{dataItem.complexity.toUpperCase()}</DefaultText>
+            <DefaultText style={styles.text}>{dataItem.affordability.toUpperCase()}</DefaultText>
           </View>
         </View>
       </TouchableComponent>
@@ -72,12 +66,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   title: {
-    fontSize: 18,
-    fontFamily: 'Poppins-SemiBold',
-    // backgroundColor: 'rgba(255,255,255,0.6)',
-    // paddingVertical: 3,
-    // paddingHorizontal: 5,
     textAlign: 'center',
+  },
+  text: {
+    fontSize: 16,
   },
   mealDetail: {
     paddingHorizontal: 10,

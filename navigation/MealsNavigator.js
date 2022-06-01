@@ -22,6 +22,9 @@ const optionsNavigator = {
   headerStyle: { backgroundColor: Platform.OS === 'android' ? Colors.primary : 'white' },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
   headerTitleAlign: 'center',
+  contentStyle: {
+    backgroundColor: '#F8ECD1',
+  },
 };
 
 const screenOptions = ({ route }) => ({
@@ -40,12 +43,14 @@ const screenOptions = ({ route }) => ({
     return <Ionicons name={iconName} size={size} color={color} />;
   },
   tabBarActiveTintColor: Colors.primary,
-  tabBarInactiveTintColor: 'gray',
+  tabBarInactiveTintColor: '#AAAAAA',
   tabBarLabelStyle: {
     fontSize: 12,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-SemiBold',
     textTransform: 'uppercase',
   },
+  tabBarActiveBackgroundColor: '#F7F7E8',
+  tabBarInactiveBackgroundColor: '#F7F7E8',
 });
 
 const buttonDrawerShow = ({ navigation }) => ({
@@ -84,7 +89,7 @@ function FavoritesNavigator() {
 function FiltersNavigator() {
   return (
     <Stack.Navigator screenOptions={optionsNavigator}>
-      <Stack.Screen name='Filters' component={FiltersScreen} options={{ title: 'Filters' }} />
+      <Stack.Screen name='Filters' component={FiltersScreen} options={buttonDrawerShow} />
     </Stack.Navigator>
   );
 }
